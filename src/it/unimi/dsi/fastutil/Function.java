@@ -98,4 +98,24 @@ public interface Function<K,V> {
 	
 	void clear();
 
+    // Defaultable methods
+
+	/**
+	 * Returns the value to which the specified key is mapped, or
+	 * {@code defaultValue} if this map contains no mapping for the key.
+	 *
+	 * @param k
+	 *            the key.
+	 * @param defaultValue
+	 *            the default mapping of the key.
+	 * @return the value to which the specified key is mapped, or
+	 *         {@code defaultValue} if this map contains no mapping for the key.
+	 * @see java.util.Map#getOrDefault(Object, Object)
+	 * @since 8.0.0
+	 */
+	default V getOrDefault(Object k, V defaultValue) {
+		final V v = get(k);
+		return v != null || containsKey(k) ? v : defaultValue;
+	}
+
 }

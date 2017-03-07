@@ -329,4 +329,14 @@ public abstract class ABSTRACT_MAP KEY_VALUE_GENERIC extends ABSTRACT_FUNCTION K
 	}
 	 
 
+    // Defaultable methods
+
+#if KEYS_REFERENCE && VALUES_REFERENCE
+	/** {@inheritDoc} */
+	@Override
+	public VALUE_GENERIC_CLASS getOrDefault(Object k, VALUE_GENERIC_CLASS defaultValue) {
+		return super.getOrDefault(k, defaultValue);
+	}
+#endif
+
 }

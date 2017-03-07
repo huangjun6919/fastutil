@@ -151,4 +151,18 @@ public interface MAP KEY_VALUE_GENERIC extends FUNCTION KEY_VALUE_GENERIC, Map<K
 #endif
 
 	}
+
+    // Defaultable methods
+
+#if KEYS_PRIMITIVE || VALUES_PRIMITIVE
+	/** {@inheritDoc}
+	 * @deprecated Please use the corresponding type-specific method instead. */
+	@Deprecated
+#else
+	/** {@inheritDoc} */
+#endif
+	@Override
+	default VALUE_GENERIC_CLASS getOrDefault(Object k, VALUE_GENERIC_CLASS defaultValue) {
+		return FUNCTION.super.getOrDefault(k, defaultValue);
+	}
 }

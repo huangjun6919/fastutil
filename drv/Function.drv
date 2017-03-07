@@ -106,4 +106,39 @@ public interface FUNCTION KEY_VALUE_GENERIC extends Function<KEY_GENERIC_CLASS, 
 
 	VALUE_GENERIC_TYPE defaultReturnValue();
 
+
+    // Defaultable methods
+
+#if KEYS_PRIMITIVE || VALUES_PRIMITIVE
+	/**
+	 * Returns the value to which the specified key is mapped, or
+	 * {@code defaultValue} if this map contains no mapping for the key.
+	 *
+	 * @param k
+	 *            the key.
+	 * @param defaultValue
+	 *            the default mapping of the key.
+	 * @return the value to which the specified key is mapped, or
+	 *         {@code defaultValue} if this map contains no mapping for the key.
+	 * @see java.util.Map#getOrDefault(Object, Object)
+	 * @since 8.0.0
+	 */
+	default VALUE_GENERIC_TYPE getOrDefault(KEY_TYPE k, VALUE_GENERIC_TYPE defaultValue) {
+#if VALUES_PRIMITIVE
+		return containsKey(k) ? get(k) : defaultValue;
+#else
+		final VALUE_GENERIC_TYPE v = get(k);
+		return v != null || containsKey(k) ? v : defaultValue;
+#endif
+	}
+
+	/** {@inheritDoc}
+	 * @deprecated Please use the corresponding type-specific method instead. */
+	@Deprecated
+	@Override
+	default VALUE_GENERIC_CLASS getOrDefault(Object k, VALUE_GENERIC_CLASS defaultValue) {
+		return Function.super.getOrDefault(k, defaultValue);
+	}
+#endif
+
 }
